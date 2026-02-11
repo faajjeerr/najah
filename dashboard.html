@@ -110,9 +110,9 @@
 
                     let msg = "";
                     if (document.documentElement.dir === 'rtl') {
-                        msg = `🚨 نداء استغاثة (تطبيق نجاة):\n👤 المريض: ${name}\n🩸 فصيلة الدم: ${blood}\n📝 ملاحظات: ${notes}\n📍 الموقع: ${mapLink}`;
+                        msg = ` نداء استغاثة (تطبيق نجاة):\n المريض: ${name}\n فصيلة الدم: ${blood}\n ملاحظات: ${notes}\n الموقع: ${mapLink}`;
                     } else {
-                        msg = `🚨 Emergency SOS (Najah App):\n👤 Patient: ${name}\n🩸 Blood Type: ${blood}\n📝 Notes: ${notes}\n📍 Location: ${mapLink}`;
+                        msg = ` Emergency SOS (Najah App):\n Patient: ${name}\n Blood Type: ${blood}\n Notes: ${notes}\n Location: ${mapLink}`;
                     }
 
                     if (navigator.share) {
@@ -135,4 +135,5 @@
         window.onload = () => changeLang(localStorage.getItem('lang') || 'ar');
     </script>
 </body>
+
 </html>
