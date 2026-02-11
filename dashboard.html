@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نجاة | الرئيسية</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>   
+    <!--شريط التنقل -->
+    <div class="top-nav">
+        <div class="lang-switch">
+            <button onclick="changeLang('ar')">العربية</button>
+            <button onclick="changeLang('en')">English</button>
+        </div>
+        <a href="profile.html" id="btnProfile" class="back-link">الملف الطبي</a>
+    </div>
+    <div class="container">
+        <header class="dashboard-header">
+            <img src="logo.png" alt="نجاة" class="header-logo"> <!-- كلمه نجاه عشان لو ماطلع اللوقو-->
+            <h1 id="welcome">أهلاً بك في نجاة</h1>
+        </header> 
+        <a href="tel:997" class="card-link"> <!-- يتفح تطبيق الاتصال-->
+            <div class="icon-box">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="#fbebcb" d="M344-32c128.1 0 232 103.9 232 232 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-101.6-82.4-184-184-184-13.3 0-24-10.7-24-24s10.7-24 24-24zm8 192a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM320 88c0-13.3 10.7-24 24-24 75.1 0 136 60.9 136 136 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-48.6-39.4-88-88-88-13.3 0-24-10.7-24-24zM144.1 1.4c19.7-5.4 40.3 4.7 48.1 23.5l40.5 97.3c6.9 16.5 2.1 35.6-11.8 47l-44.1 36.1c32.5 71.6 89 130 159.3 164.9L374.7 323c11.3-13.9 30.4-18.6 47-11.8L519 351.8c18.8 7.8 28.9 28.4 23.5 48.1l-1.5 5.5C523.4 470.1 460.9 525.3 384.6 509.2 209.6 472.1 71.9 334.4 34.8 159.4 18.7 83.1 73.9 20.6 138.5 2.9l5.5-1.5z"/></svg>
+            </div>
+            <h3 id="call">طلب الإسعاف (997)</h3>
+        </a>
+
+        <div class="card-link" id="shareLoc" onclick="shareEmergencySOS()"> <!-- يشارك الموقع-->
+            <div class="icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#fbebcb" d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"/></svg>
+            </div>
+            <h3 id="share">مشاركة الموقع والاستغاثة</h3>
+        </div>
+
+        <a href="cases.html" class="card-link">
+            <div class="icon-box"> 
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#fbebcb" d="M96 512l320 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l0-66.7c18.6-6.6 32-24.4 32-45.3l0-288c0-26.5-21.5-48-48-48L96 0C43 0 0 43 0 96L0 416c0 53 43 96 96 96zM64 416c0-17.7 14.3-32 32-32l256 0 0 64-256 0c-17.7 0-32-14.3-32-32zM192 120c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 40 40 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-40 0 0 40c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-40-40 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16l40 0 0-40z"/></svg>
+            </div>
+            <h3 id="guide">دليل الحالات</h3>
+        </a>
+
+        <div class="card-link" onclick="findHospital()"> <!-- تبحث عن اقرب مستشفى-->
+            <div class="icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#fbebcb" d="M0 188.6C0 84.4 86 0 192 0S384 84.4 384 188.6c0 119.3-120.2 262.3-170.4 316.8-11.8 12.8-31.5 12.8-43.3 0-50.2-54.5-170.4-197.5-170.4-316.8zM192 256a64 64 0 1 0 0-128 64 64 0 1 0 0 128z"/></svg>
+            </div>
+            <h3 id="hospital">أقرب مستشفى</h3>
+        </div>
+
+        <a href="quiz.html" class="card-link">
+            <div class="icon-box"> 
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="#fbebcb" d="M128 64c0-35.3 28.7-64 64-64L384 0c35.3 0 64 28.7 64 64l0 64 64 0c35.3 0 64 28.7 64 64l0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192c0-35.3 28.7-64 64-64l64 0 0-64zM272 352c-17.7 0-32 14.3-32 32l0 80 96 0 0-80c0-17.7-14.3-32-32-32l-32 0zM128 368l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16zM112 256c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0zM512 368l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16zM496 256c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0zM264 104l0 32-32 0c-8.8 0-16 7.2-16 16l0 16c0 8.8 7.2 16 16 16l32 0 0 32c0 8.8 7.2 16 16 16l16 0c8.8 0 16-7.2 16-16l0-32 32 0c8.8 0 16-7.2 16-16l0-16c0-8.8-7.2-16-16-16l-32 0 0-32c0-8.8-7.2-16-16-16l-16 0c-8.8 0-16 7.2-16 16z"/></svg>
+            </div>
+            <h3 id="quiz">اختبر معلوماتك</h3>
+        </a>
+
+        <div class="about-section">
+            <h3 id="aboutTitle">من نحن</h3>
+            <p id="aboutText">نجاة تطبيق إسعافات أولية يهدف لإنقاذ الأرواح من خلال توفير معلومات طبية دقيقة وسريعة. نستهدف جميع أفراد المجتمع لتمكينهم من التصرف الصحيح في حالات الطوارئ قبل وصول الإسعاف.</p>
+        </div>
+    </div>
+<!--دوال جافا سكربت-->
+    <script>
+        const texts = {
+            ar: { 
+                welcome: "أهلاً بك في نجاة", 
+                call: "طلب الإسعاف (997)", 
+                share: "مشاركة الموقع والاستغاثة", 
+                guide: "دليل الحالات", 
+                hospital: "أقرب مستشفى", 
+                quiz: "اختبر معلوماتك", 
+                btnProfile: "الملف الطبي",
+                aboutTitle: "من نحن",
+                aboutText: "نجاة تطبيق إسعافات أولية يهدف لإنقاذ الأرواح من خلال توفير معلومات طبية دقيقة وسريعة. نستهدف جميع أفراد المجتمع لتمكينهم من التصرف الصحيح في حالات الطوارئ قبل وصول الإسعاف."
+            },
+            en: { 
+                welcome: "Welcome to Najah", 
+                call: "Call Ambulance (997)", 
+                share: "Share Location & SOS", 
+                guide: "Emergency Guide", 
+                hospital: "Nearest Hospital", 
+                quiz: "Quiz Yourself", 
+                btnProfile: "Medical ID",
+                aboutTitle: "About Us",
+                aboutText: "Najah is a first aid app aimed at saving lives by providing accurate and rapid medical information. We target all community members to empower them to act correctly in emergencies before the ambulance arrives."
+            }
+        };
+
+        function changeLang(l) {
+            document.documentElement.dir = (l === 'ar') ? 'rtl' : 'ltr';
+            Object.keys(texts[l]).forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.innerText = texts[l][id];
+            });
+            localStorage.setItem('lang', l);
+        }
+
+        function shareEmergencySOS() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(pos) {
+                    const lat = pos.coords.latitude;
+                    const lon = pos.coords.longitude;
+                    const mapLink = `https://www.google.com/maps?q=${lat},${lon}`;
+                    
+                    const name = localStorage.getItem('userName') || (document.documentElement.dir === 'rtl' ? "غير مسجل" : "Not Registered");
+                    const blood = localStorage.getItem('bloodType') || "-";
+                    const notes = localStorage.getItem('medicalNotes') || "-";
+
+                    let msg = "";
+                    if (document.documentElement.dir === 'rtl') {
+                        msg = `🚨 نداء استغاثة (تطبيق نجاة):\n👤 المريض: ${name}\n🩸 فصيلة الدم: ${blood}\n📝 ملاحظات: ${notes}\n📍 الموقع: ${mapLink}`;
+                    } else {
+                        msg = `🚨 Emergency SOS (Najah App):\n👤 Patient: ${name}\n🩸 Blood Type: ${blood}\n📝 Notes: ${notes}\n📍 Location: ${mapLink}`;
+                    }
+
+                    if (navigator.share) {
+                        navigator.share({ title: 'استغاثة طبية طارئة', text: msg }).catch(err => console.log(err));
+                    } else {
+                        window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+                    }
+                }, function() {
+                    alert("يرجى تفعيل الـ GPS والسماح بالوصول للموقع.");
+                });
+            } else {
+                alert("متصفحك لا يدعم خاصية تحديد الموقع.");
+            }
+        }
+
+        function findHospital() {
+            window.open("https://www.google.com/maps/search/hospital+near+me", "_blank");
+        }
+
+        window.onload = () => changeLang(localStorage.getItem('lang') || 'ar');
+    </script>
+</body>
+</html>

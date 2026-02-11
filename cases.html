@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نجاة | الحالات الطارئة</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <div class="top-nav">
+            <a href="dashboard.html" class="back-nav" id="btnBack">← رجوع</a>
+            <div class="lang-switch">
+                <button onclick="setLanguage('ar')">العربية</button>
+                <button onclick="setLanguage('en')">English</button>
+            </div>
+        </div>
+
+        <h2 id="mainTitle">ما هي الحالة؟</h2>
+
+        <div class="cases-grid">
+            <button class="case-card" onclick="goToDetails('drowning')">
+                <img src="drowning.png" alt="غرق" class="case-icon">
+                <h3 id="t-drowning">غرق</h3>
+            </button>
+
+            <button class="case-card" onclick="showSubMenu('choking', ['food', 'smoke'])">
+                <img src="choking.png" alt="اختناق" class="case-icon">
+                <h3 id="t-choking">اختناق</h3>
+            </button>
+
+            <button class="case-card" onclick="showSubMenu('seizure', ['major', 'fainting'])">
+                <img src="seizure.png" alt="صرع" class="case-icon">
+                <h3 id="t-seizure">صرع</h3>
+            </button>
+
+            <button class="case-card" onclick="showSubMenu('accidents', ['bleeding', 'fracture'])">
+                <img src="accidents.png" alt="حوادث" class="case-icon">
+                <h3 id="t-accidents">حوادث</h3>
+            </button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+    <div class="sub-menu" id="subMenu">
+        <h4 id="menuTitle">الحالة</h4>
+        <div id="optionsContainer"></div>
+    </div>
+
+    <script>
+        const translations = {
+            ar: {
+                mainTitle: "ما هي الحالة؟", back: "← رجوع",
+                drowning: "غرق", choking: "اختناق", seizure: "صرع", accidents: "حوادث",
+                options: {
+                    food: "جسم غريب (طعام)", smoke: "استنشاق دخان",
+                    major: "نوبة صرع كبرى", fainting: "فقدان وعي مفاجئ",
+                    bleeding: "نزيف خارجي", fracture: "كسور مشتبه بها"
+                }
+            },
+            en: {
+                mainTitle: "What is the emergency?", back: "← Back",
+                drowning: "Drowning", choking: "Choking", seizure: "Seizure", accidents: "Accidents",
+                options: {
+                    food: "Foreign object (Food)", smoke: "Smoke inhalation",
+                    major: "Major Seizure", fainting: "Sudden fainting",
+                    bleeding: "External Bleeding", fracture: "Suspected Fracture"
+                }
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'ar';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+            document.getElementById('mainTitle').innerText = translations[lang].mainTitle;
+            document.getElementById('btnBack').innerText = translations[lang].back;
+            document.getElementById('t-drowning').innerText = translations[lang].drowning;
+            document.getElementById('t-choking').innerText = translations[lang].choking;
+            document.getElementById('t-seizure').innerText = translations[lang].seizure;
+            document.getElementById('t-accidents').innerText = translations[lang].accidents;
+            localStorage.setItem('lang', lang);
+        }
+
+        function showSubMenu(category, optionsKeys) {
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = ''; 
+            document.getElementById('menuTitle').innerText = translations[currentLang][category];
+
+            optionsKeys.forEach(key => {
+                const btn = document.createElement('button');
+                btn.className = 'sub-option';
+                btn.innerText = translations[currentLang].options[key];
+                btn.onclick = () => {
+                    window.location.href = `details.html?case=${key}`;
+                };
+                container.appendChild(btn);
+            });
+
+            document.getElementById('subMenu').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function goToDetails(caseKey) {
+            window.location.href = `details.html?case=${caseKey}`;
+        }
+
+        function closeMenu() {
+            document.getElementById('subMenu').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        window.onload = () => setLanguage(currentLang);
+    </script>
+
+</body>
+</html>

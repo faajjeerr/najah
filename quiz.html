@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نجاة | اختبار الوعي الإسعافي</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!--زر يرجع للداشبورد-->
+    <header class="quiz-header">
+        <a href="dashboard.html" class="quiz-exit">← إنهاء التدريب</a>
+    </header>
+
+    <div class="quiz-wrapper">
+        <!--عداد للسوال-->
+        <div id="quizContent">
+            <span id="qCount" class="question-counter">جاري التحميل...</span>
+            <!--شريط التقدم-->
+            <div class="progress-container">
+                <div id="progressBar"></div>
+            </div>
+            
+            <div class="question-text" id="qText">جاري تحميل السؤال...</div>
+            <!--الخيارات بنضيفها من الكود-->
+            <div class="options-grid" id="qOptions">
+            </div>
+        </div>
+<!-- النتيجه بتكون مخفيه بالبدايه-->
+        <div id="resultScreen">
+            <h2>اكتمل الاختبار!</h2>
+            <div class="rank-badge" id="rankText">--</div>
+            <p id="scoreText">--</p>
+            <button class="action-btn" onclick="location.reload()">إعادة المحاولة</button>
+        </div>
+    </div>
+
+    <script>
+        //سكربت الاسئله والاجوبه
+        const quizData = [
+            {
+                q: "رأيت شخصاً يغرق وتم إخراجه فاقداً للوعي ولا يتنفس، ما هو أول إجراء؟",
+                options: ["وضعه في الشمس ليدفأ", "بدأ الإنعاش القلبي الرئوي (CPR) فوراً", "الانتظار حتى يستفرغ الماء"],
+                correct: 1
+            },
+            {
+                q: "في حالة النزيف الخارجي الشديد، ما هي الطريقة الصحيحة لإيقافه؟",
+                options: ["الضغط المباشر بقطعة قماش نظيفة", "غسل الجرح بالماء والصابون فقط", "وضع كمادات ثلج مباشرة"],
+                correct: 0
+            },
+            {
+                q: "عند حدوث نوبة صرع لشخص أمامك، ماذا يجب أن تضع في فمه؟",
+                options: ["ملعقة معدنية", "قطعة قماش قوية", "لا تضع أي شيء في فمه مطلقاً"],
+                correct: 2
+            },
+            {
+                q: "إذا كان الشخص يغص (اختناق) ولكنه ما زال يسعل بقوة، ماذا تفعل؟",
+                options: ["تشجيعه على السعال وعدم التدخل", "ضربه على ظهره فوراً", "إعطاؤه كأساً من الماء"],
+                correct: 0
+            },
+            {
+                q: "عند مصادفة حادث مروري، متى يجب عليك تحريك المصاب من مكانه؟",
+                options: ["دائماً لنقله للمستشفى بسرعة", "فقط إذا كان هناك خطر انفجار أو حريق", "لجعله يجلس بشكل مريح"],
+                correct: 1
+            },
+            {
+                q: "شخص مصاب بنزيف في الأنف (رعاف)، ما هي الوضعية الصحيحة؟",
+                options: ["إمالة الرأس للخلف", "إمالة الرأس للأمام والضغط على الأنف", "الاستلقاء على الظهر"],
+                correct: 1
+            },
+            {
+                q: "ما هو التصرف الصحيح إذا وجدت جسماً غريباً منغرساً في جسم المصاب؟",
+                options: ["نزعه فوراً وتطهير الجرح", "تثبيت الجسم في مكانه وعدم نزعه", "تحريكه للتأكد من عمق الجرح"],
+                correct: 1
+            }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+
+        function initQuiz() {
+            const q = quizData[currentQ];
+            document.getElementById('qText').innerText = q.q;
+            document.getElementById('qCount').innerText = `سؤال ${currentQ + 1} من ${quizData.length}`;
+            
+            const progress = (currentQ / quizData.length) * 100;
+            document.getElementById('progressBar').style.width = progress + "%";
+
+            const optionsBox = document.getElementById('qOptions');
+            optionsBox.innerHTML = '';
+            
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'opt-btn';
+                btn.innerText = opt;
+                btn.onclick = () => checkAns(i);
+                optionsBox.appendChild(btn);
+            });
+        }
+
+        function checkAns(selected) {
+            const correct = quizData[currentQ].correct;
+            const btns = document.querySelectorAll('.opt-btn');
+            document.getElementById('qOptions').style.pointerEvents = 'none';
+
+            if(selected === correct) {
+                btns[selected].classList.add('is-correct');
+                score++;
+            } else {
+                btns[selected].classList.add('is-wrong');
+                btns[correct].classList.add('is-correct');
+            }
+
+            setTimeout(() => {
+                currentQ++;
+                if(currentQ < quizData.length) {
+                    document.getElementById('qOptions').style.pointerEvents = 'auto';
+                    initQuiz();
+                } else {
+                    finishQuiz();
+                }
+            }, 1200);
+        }
+
+        function finishQuiz() {
+            document.getElementById('quizContent').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'block';
+            document.getElementById('progressBar').style.width = "100%";
+            document.getElementById('scoreText').innerText = `لقد أجبت على ${score} من ${quizData.length} أسئلة`;
+            
+            let rank = "";
+            if(score === 7) rank = "مسعف خبير 🏅";
+            else if(score >= 5) rank = "منقذ متمكن 🥈";
+            else rank = "متدرب طوارئ 🥉";
+            
+            document.getElementById('rankText').innerText = rank;
+        }
+
+        initQuiz();
+    </script>
+
+</body>
+</html>
