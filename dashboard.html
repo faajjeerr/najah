@@ -97,36 +97,41 @@
             localStorage.setItem('lang', l);
         }
 
-        function shareEmergencySOS() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(pos) {
-                    const lat = pos.coords.latitude;
-                    const lon = pos.coords.longitude;
-                    const mapLink = `https://www.google.com/maps?q=${lat},${lon}`;
-                    
-                    const name = localStorage.getItem('userName') || (document.documentElement.dir === 'rtl' ? "غير مسجل" : "Not Registered");
-                    const blood = localStorage.getItem('bloodType') || "-";
-                    const notes = localStorage.getItem('medicalNotes') || "-";
+       function shareEmergencySOS() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            const lat = pos.coords.latitude;
+            const lon = pos.coords.longitude;
+            const mapLink = `https://www.google.com/maps?q=${lat},${lon}`;
+            
+            const name = localStorage.getItem('userName') || (document.documentElement.dir === 'rtl' ? "غير مسجل" : "Not Registered");
+            const blood = localStorage.getItem('bloodType') || "-";
+            const notes = localStorage.getItem('medicalNotes') || "-";
 
-                    let msg = "";
-                    if (document.documentElement.dir === 'rtl') {
-                        msg = ` نداء استغاثة (تطبيق نجاة):\n المريض: ${name}\n فصيلة الدم: ${blood}\n ملاحظات: ${notes}\n الموقع: ${mapLink}`;
-                    } else {
-                        msg = ` Emergency SOS (Najah App):\n Patient: ${name}\n Blood Type: ${blood}\n Notes: ${notes}\n Location: ${mapLink}`;
-                    }
+            let msg = "";
+            if (document.documentElement.dir === 'rtl') {
+                msg = ` نداء استغاثة (تطبيق نجاة):\n المريض: ${name}\n فصيلة الدم: ${blood}\nملاحظات: ${notes}\n الموقع: ${mapLink}`;
+            } else {
+                msg = ` Emergency SOS (Najah App):\n Patient: ${name}\n Blood Type: ${blood}\n Notes: ${notes}\n Location: ${mapLink}`;
+            }
 
-                    if (navigator.share) {
-                        navigator.share({ title: 'استغاثة طبية طارئة', text: msg }).catch(err => console.log(err));
-                    } else {
-                        window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
-                    }
-                }, function() {
-                    alert("يرجى تفعيل الـ GPS والسماح بالوصول للموقع.");
+            if (navigator.share) {
+                navigator.share({ 
+                    title: 'استغاثة طبية طارئة', 
+                    text: msg 
+                }).catch(err => {
+                    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
                 });
             } else {
-                alert("متصفحك لا يدعم خاصية تحديد الموقع.");
+                window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
             }
-        }
+        }, function() {
+            alert("يرجى تفعيل الـ GPS والسماح بالوصول للموقع.");
+        });
+    } else {
+        alert("متصفحك لا يدعم خاصية تحديد الموقع.");
+    }
+}
 
         function findHospital() {
             window.open("https://www.google.com/maps/search/hospital+near+me", "_blank");
@@ -137,3 +142,4 @@
 </body>
 
 </html>
+
